@@ -265,7 +265,10 @@ const ProductRequestModal = ({
   };
 
   //   -------------------------------------------
+
+  console.log("UI", formUI);
   console.log(form.getFieldsValue());
+
   return (
     <AntdModal
       open={open}

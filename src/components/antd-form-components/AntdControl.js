@@ -9,6 +9,8 @@ import AntdSelect from "./AntdSelect";
 import AntdCheckbox from "./AntdCheckbox";
 import AntdDate from "./AntdDate";
 import AntdTime from "./AntdTime";
+import AntdArray from "./AntdArray";
+import AntdHidden from "./AntdHidden";
 
 export const ControlType = {
   Form: "form",
@@ -21,6 +23,8 @@ export const ControlType = {
   Switch: "switch",
   Date: "date",
   Time: "time",
+  Array: "array",
+  HiddenField: "hidden-field",
 };
 
 export const AntdControl = (props) => {
@@ -47,6 +51,10 @@ export const AntdControl = (props) => {
       return <AntdDate {...rest} />;
     case ControlType.Time:
       return <AntdTime {...rest} />;
+    case ControlType.Array:
+      return <AntdArray {...rest} />;
+    case ControlType.HiddenField:
+      return <AntdHidden {...rest} />;
     default:
       return null;
   }

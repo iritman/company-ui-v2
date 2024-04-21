@@ -362,9 +362,27 @@ const renderFormItem = (form_item, formItemProperties) => {
                   {Title}
                 </Text>
               </Divider>
+
+              <AntdControl
+                control={ControlType.Array}
+                fieldName={FieldName}
+                title={Title}
+                rules={[getItemRules(form_item)]}
+              />
             </Col>
           )}
         </>
+      );
+      break;
+
+    case ControlTypes.Hidden_Field:
+      result = (
+        <AntdControl
+          control={ControlType.HiddenField}
+          fieldName={FieldName}
+          title={Title}
+          rules={[getItemRules(form_item)]}
+        />
       );
       break;
 
@@ -479,13 +497,15 @@ const renderFormItem = (form_item, formItemProperties) => {
 export const renderFormUI = (form_ui, formConfig) => {
   return (
     <>
-      {form_ui?.FormItems.filter(
-        (i) => i.ControlTypeID !== ControlTypes.Hidden_Field
-      ).map((form_item) => (
-        <React.Fragment key={form_item?.ItemID}>
-          {renderFormItem(form_item, formConfig)}
-        </React.Fragment>
-      ))}
+      {form_ui?.FormItems
+        // .filter(
+        //   (i) => i.ControlTypeID !== ControlTypes.Hidden_Field
+        // )
+        .map((form_item) => (
+          <React.Fragment key={form_item?.ItemID}>
+            {renderFormItem(form_item, formConfig)}
+          </React.Fragment>
+        ))}
     </>
   );
 };
