@@ -1323,6 +1323,7 @@ class Words extends Component {
     product_inventory_control_agent_already_exists:
       "عامل کنترل موجودی مورد نظر قبلا ثبت شده است",
     no_selected_cash_box: "صندوق انتخاب نشده است",
+    numeric_format_with_precision: "فرمت عدد با حداکثر * رقم اعشار",
   };
 
   static questions = {

@@ -2,6 +2,8 @@ import React from "react";
 import { Col, Typography, Divider } from "antd";
 import { ControlType, AntdControl } from "./AntdControl";
 import Colors from "../../resources/colors";
+import Words from "../../resources/words";
+import utils from "../../tools/utils";
 
 const { Text } = Typography;
 
@@ -39,7 +41,7 @@ export const getItemRules = (form_item) => {
     // DefaultValue,
     MinValue,
     MaxValue,
-    // DecimalCount,
+    DecimalCount,
     IsMandatory,
     // DataSource,
     // Size_xs,
@@ -48,6 +50,7 @@ export const getItemRules = (form_item) => {
     // Size_lg,
   } = form_item;
 
+  let result = [];
   let schema = {};
 
   if (ControlTypeID !== ControlTypes.Label) {
@@ -61,7 +64,19 @@ export const getItemRules = (form_item) => {
         break;
 
       case 2: // Decimal
-        schema.type = "float";
+        schema.type = "number";
+        result = [
+          ...result,
+          {
+            pattern: new RegExp(`^\\d+(\\.\\d{1,${DecimalCount}})?$`),
+            message: utils.farsiNum(
+              Words.messages.numeric_format_with_precision.replace(
+                "*",
+                DecimalCount
+              )
+            ),
+          },
+        ];
         break;
 
       case 3: // String
@@ -81,113 +96,8 @@ export const getItemRules = (form_item) => {
     }
   }
 
-  return schema;
-
-  /*
-  form_ui?.FormItems?.filter(
-    (i) => i.ControlTypeID !== controlTypes.Label
-  ).forEach((i) => {
-    switch (i.DataTypeID) {
-      case 1: // Integer
-        schema.type = "integer";
-        if (i.IsMandatory) schema.required = true;
-        if (i.MinValue > 0) schema.min = i.MinValue;
-        if (i.MaxValue > 0) schema.max = i.MaxValue;
-        // let int_schema = Joi.number();
-        // if (i.IsMandatory) int_schema = int_schema.required();
-        // if (i.MinValue > 0) int_schema = int_schema.min(i.MinValue);
-        // if (i.MaxValue > 0) int_schema = int_schema.max(i.MaxValue);
-        // int_schema = int_schema.label(i.Title);
-        // schema[i.FieldName] = int_schema;
-        break;
-      
-      case 2: // Decimal
-        let decimal_schema = Joi.number();
-        if (i.IsMandatory) decimal_schema = decimal_schema.required();
-        if (i.MinValue > 0) decimal_schema = decimal_schema.min(i.MinValue);
-        if (i.MaxValue > 0) decimal_schema = decimal_schema.max(i.MaxValue);
-        if (i.DecimalCount > 0)
-          decimal_schema = decimal_schema.precision(i.DecimalCount);
-        decimal_schema = decimal_schema.label(i.Title);
-        schema[i.FieldName] = decimal_schema;
-        break;
-
-      case 3: // String
-        let string_schema = Joi.string().regex(utils.VALID_REGEX);
-        string_schema = i.IsMandatory
-          ? string_schema.required()
-          : string_schema.allow("");
-        if (i.MinValue > 0) string_schema = string_schema.min(i.MinValue);
-        if (i.MaxValue > 0) string_schema = string_schema.max(i.MaxValue);
-        string_schema = string_schema.label(i.Title);
-        schema[i.FieldName] = string_schema;
-        break;
-
-      case 4: // Boolean
-        let boolean_schema = Joi.boolean();
-        schema[i.FieldName] = boolean_schema;
-        break;
-
-      case 5: // Array
-        let array_schema = Joi.array();
-        schema[i.FieldName] = array_schema;
-        break;
-        
-    }
-  });
-*/
+  return [...result, schema];
 };
-
-// const manageValueType = (i, current_date) => {
-//   const { ControlTypeID, DataTypeID, DefaultValue } = i;
-
-//   let converted_value = "";
-
-//   switch (DataTypeID) {
-//     case 1: // Integer
-//       converted_value = parseInt(DefaultValue);
-//       break;
-
-//     case 2: // Decimal
-//       converted_value = parseFloat(DefaultValue);
-//       break;
-
-//     case 3: // String
-//       converted_value =
-//         ControlTypeID === 2 && DefaultValue === "CurrentDate"
-//           ? current_date
-//           : DefaultValue;
-//       break;
-
-//     case 4: // Boolean
-//       converted_value = DefaultValue.toLowerCase() === "true";
-//       break;
-
-//     case 5: // Array
-//       converted_value = JSON.parse(
-//         DefaultValue.length > 0 ? DefaultValue : "[]"
-//       );
-//       break;
-
-//     default:
-//       converted_value = DefaultValue;
-//       break;
-//   }
-
-//   return converted_value;
-// };
-
-// export const getInitRecord = (form_ui) => {
-//   const result = {};
-
-//   form_ui.FormItems.filter(
-//     (i) => i.ControlTypeID !== controlTypes.Label
-//   ).forEach(
-//     (i) => (result[i.FieldName] = manageValueType(i, form_ui.CurrentDate))
-//   );
-
-//   return result;
-// };
 
 const renderFormItem = (form_item, formItemProperties) => {
   const {
@@ -267,7 +177,8 @@ const renderFormItem = (form_item, formItemProperties) => {
                 control={ControlType.InputNumber}
                 fieldName={FieldName}
                 title={Title}
-                rules={[getItemRules(form_item)]}
+                rules={getItemRules(form_item)}
+                {...additionalProps}
                 // autoFocus={true}
               />
             </Col>
@@ -286,7 +197,7 @@ const renderFormItem = (form_item, formItemProperties) => {
                 allowClear
                 fieldName={FieldName}
                 title={Title}
-                rules={[getItemRules(form_item)]}
+                rules={getItemRules(form_item)}
                 dataSource={data_field?.dataSource || []}
                 keyColumn={
                   KeyFieldName === FieldName ? KeyFieldName : FieldName
@@ -316,7 +227,7 @@ const renderFormItem = (form_item, formItemProperties) => {
                 allowClear
                 fieldName={FieldName}
                 title={Title}
-                rules={[getItemRules(form_item)]}
+                rules={getItemRules(form_item)}
                 dataSource={data_field?.dataSource || DataSource}
                 keyColumn={
                   KeyFieldName === FieldName ? KeyFieldName : FieldName
@@ -339,9 +250,10 @@ const renderFormItem = (form_item, formItemProperties) => {
                 control={ControlType.TextArea}
                 fieldName={FieldName}
                 title={Title}
-                rules={[getItemRules(form_item)]}
+                rules={getItemRules(form_item)}
                 showCount
                 maxLength={MaxValue}
+                {...additionalProps}
               />
             </Col>
           )}
@@ -367,7 +279,7 @@ const renderFormItem = (form_item, formItemProperties) => {
                 control={ControlType.Array}
                 fieldName={FieldName}
                 title={Title}
-                rules={[getItemRules(form_item)]}
+                rules={getItemRules(form_item)}
               />
             </Col>
           )}
@@ -381,7 +293,7 @@ const renderFormItem = (form_item, formItemProperties) => {
           control={ControlType.HiddenField}
           fieldName={FieldName}
           title={Title}
-          rules={[getItemRules(form_item)]}
+          rules={getItemRules(form_item)}
         />
       );
       break;
@@ -395,7 +307,8 @@ const renderFormItem = (form_item, formItemProperties) => {
                 control={ControlType.Date}
                 fieldName={FieldName}
                 title={Title}
-                rules={[getItemRules(form_item)]}
+                rules={getItemRules(form_item)}
+                {...additionalProps}
               />
             </Col>
           )}
@@ -412,7 +325,27 @@ const renderFormItem = (form_item, formItemProperties) => {
                 control={ControlType.Time}
                 fieldName={FieldName}
                 title={Title}
-                rules={[getItemRules(form_item)]}
+                rules={getItemRules(form_item)}
+                {...additionalProps}
+              />
+            </Col>
+          )}
+        </>
+      );
+      break;
+
+    case ControlTypes.Numeric_Decimal_Value:
+      console.log(getItemRules(form_item));
+      result = (
+        <>
+          {!is_hidden && (
+            <Col {...col_sizes} key={ItemID}>
+              <AntdControl
+                control={ControlType.InputNumber}
+                fieldName={FieldName}
+                title={Title}
+                rules={getItemRules(form_item)}
+                {...additionalProps}
               />
             </Col>
           )}
@@ -436,30 +369,6 @@ const renderFormItem = (form_item, formItemProperties) => {
     //             value={additionalProps.value || DefaultValue}
     //             valueColor={additionalProps.valueColor || Colors.magenta[6]}
     //             {...filtered_additional_props}
-    //           />
-    //         </Col>
-    //       )}
-    //     </>
-    //   );
-    //   break;
-
-    // case controlTypes.Numeric_Decimal_Value:
-    //   result = (
-    //     <>
-    //       {!is_hidden && (
-    //         <Col {...col_sizes} key={ItemID}>
-    //           <NumericInputItem
-    //             horizontal
-    //             title={Title}
-    //             fieldName={FieldName}
-    //             min={MinValue}
-    //             max={MaxValue}
-    //             precision={DecimalCount}
-    //             stringMode
-    //             decimalText
-    //             required={IsMandatory}
-    //             formConfig={formConfig}
-    //             {...additionalProps}
     //           />
     //         </Col>
     //       )}
