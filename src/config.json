@@ -1,0 +1,177 @@
+{
+  "apiUrl": "http://localhost:3030/api",
+  "fileBasicUrl": "http://localhost:3030/static",
+  "taskFilesUrl": "http://localhost:3030/static/task-files",
+  "taskReportFilesUrl": "http://localhost:3030/static/task-report-files",
+  "dismissalResponseFilesUrl": "http://localhost:3030/static/dismissal-response-files",
+  "dismissalReportFilesUrl": "http://localhost:3030/static/dismissal-report-files",
+  "eduFundFilesUrl": "http://localhost:3030/static/edu-fund-files",
+  "eduFundResponseFilesUrl": "http://localhost:3030/static/edu-fund-response-files",
+  "eduFundReportFilesUrl": "http://localhost:3030/static/edu-fund-report-files",
+  "violationFilesUrl": "http://localhost:3030/static/violation-files",
+  "violationResponseFilesUrl": "http://localhost:3030/static/violation-response-files",
+  "violationReportFilesUrl": "http://localhost:3030/static/violation-report-files",
+  "violationAnnounceFilesUrl": "http://localhost:3030/static/violation-announce-files",
+  "checkoutFilesUrl": "http://localhost:3030/static/checkout-files",
+  "checkoutReportFilesUrl": "http://localhost:3030/static/checkout-report-files",
+  "checkoutActionFilesUrl": "http://localhost:3030/static/checkout-action-files",
+  "managementTransferFilesUrl": "http://localhost:3030/static/mgr-transfer-files",
+  "managementTransferReportFilesUrl": "http://localhost:3030/static/mgr-transfer-report-files",
+  "managementTransferActionFilesUrl": "http://localhost:3030/static/mgr-transfer-action-files",
+  "personalTransferFilesUrl": "http://localhost:3030/static/personal-transfer-files",
+  "personalTransferReportFilesUrl": "http://localhost:3030/static/personal-transfer-report-files",
+  "personalTransferActionFilesUrl": "http://localhost:3030/static/personal-transfer-action-files",
+  "ceremonyRequestActionFilesUrl": "http://localhost:3030/static/ceremony-request-action-files",
+  "ceremonyRequestReportFilesUrl": "http://localhost:3030/static/ceremony-request-report-files",
+  "announceFilesUrl": "http://localhost:3030/static/announce-files",
+  "fileSize": {
+    "maxFileSize": 10,
+    "extensions": "jpg|jpeg|jfif|png|bmp|pdf|doc|docx|xls|xlsx|zip|rar|mp3|avi|mp4",
+    "destinationFolder": "data",
+    "sizeType": "mb"
+  },
+  "profileImageFileSize": {
+    "maxFileSize": 150,
+    "extensions": "jpg|jpeg|png",
+    "destinationFolder": "member-profiles",
+    "sizeType": "kb"
+  },
+  "taskFileConfig": {
+    "maxFileSize": 10,
+    "sizeType": "mb",
+    "extensions": "jpg|jpeg|jfif|png|bmp|pdf|doc|docx|xls|xlsx|zip|rar|mp3|avi|mp4",
+    "category": "task-files"
+  },
+  "taskReportFileConfig": {
+    "maxFileSize": 10,
+    "sizeType": "mb",
+    "extensions": "jpg|jpeg|jfif|png|bmp|pdf|doc|docx|xls|xlsx|zip|rar|mp3|avi|mp4",
+    "category": "task-report-files"
+  },
+  "dismissalResponseFileConfig": {
+    "maxFileSize": 10,
+    "sizeType": "mb",
+    "extensions": "jpg|jpeg|jfif|png|bmp|pdf|doc|docx|xls|xlsx|zip|rar|mp3|avi|mp4",
+    "category": "dismissal-response-files"
+  },
+  "dismissalReportFileConfig": {
+    "maxFileSize": 10,
+    "sizeType": "mb",
+    "extensions": "jpg|jpeg|jfif|png|bmp|pdf|doc|docx|xls|xlsx|zip|rar|mp3|avi|mp4",
+    "category": "dismissal-report-files"
+  },
+  "eduFundFileConfig": {
+    "maxFileSize": 10,
+    "sizeType": "mb",
+    "extensions": "jpg|jpeg|jfif|png|bmp|pdf|doc|docx|xls|xlsx|zip|rar|mp3|avi|mp4",
+    "category": "edu-fund-files"
+  },
+  "eduFundResponseFileConfig": {
+    "maxFileSize": 10,
+    "sizeType": "mb",
+    "extensions": "jpg|jpeg|jfif|png|bmp|pdf|doc|docx|xls|xlsx|zip|rar|mp3|avi|mp4",
+    "category": "edu-fund-response-files"
+  },
+  "eduFundReportFileConfig": {
+    "maxFileSize": 10,
+    "sizeType": "mb",
+    "extensions": "jpg|jpeg|jfif|png|bmp|pdf|doc|docx|xls|xlsx|zip|rar|mp3|avi|mp4",
+    "category": "edu-fund-report-files"
+  },
+  "violationFileConfig": {
+    "maxFileSize": 10,
+    "sizeType": "mb",
+    "extensions": "jpg|jpeg|jfif|png|bmp|pdf|doc|docx|xls|xlsx|zip|rar|mp3|avi|mp4",
+    "category": "violation-files"
+  },
+  "violationResponseFileConfig": {
+    "maxFileSize": 10,
+    "sizeType": "mb",
+    "extensions": "jpg|jpeg|jfif|png|bmp|pdf|doc|docx|xls|xlsx|zip|rar|mp3|avi|mp4",
+    "category": "violation-response-files"
+  },
+  "violationReportFileConfig": {
+    "maxFileSize": 10,
+    "sizeType": "mb",
+    "extensions": "jpg|jpeg|jfif|png|bmp|pdf|doc|docx|xls|xlsx|zip|rar|mp3|avi|mp4",
+    "category": "violation-report-files"
+  },
+  "violationAnnounceFileConfig": {
+    "maxFileSize": 10,
+    "sizeType": "mb",
+    "extensions": "jpg|jpeg|jfif|png|bmp|pdf|doc|docx|xls|xlsx|zip|rar|mp3|avi|mp4",
+    "category": "violation-announce-files"
+  },
+  "checkoutFileConfig": {
+    "maxFileSize": 10,
+    "sizeType": "mb",
+    "extensions": "jpg|jpeg|jfif|png|bmp|pdf|doc|docx|xls|xlsx|zip|rar|mp3|avi|mp4",
+    "category": "checkout-files"
+  },  
+  "checkoutReportFileConfig": {
+    "maxFileSize": 10,
+    "sizeType": "mb",
+    "extensions": "jpg|jpeg|jfif|png|bmp|pdf|doc|docx|xls|xlsx|zip|rar|mp3|avi|mp4",
+    "category": "checkout-report-files"
+  },
+  "checkoutActionFileConfig": {
+    "maxFileSize": 10,
+    "sizeType": "mb",
+    "extensions": "jpg|jpeg|jfif|png|bmp|pdf|doc|docx|xls|xlsx|zip|rar|mp3|avi|mp4",
+    "category": "checkout-action-files"
+  },
+  "managementTransferFileConfig": {
+    "maxFileSize": 10,
+    "sizeType": "mb",
+    "extensions": "jpg|jpeg|jfif|png|bmp|pdf|doc|docx|xls|xlsx|zip|rar|mp3|avi|mp4",
+    "category": "mgr-transfer-files"
+  },  
+  "managementTransferReportFileConfig": {
+    "maxFileSize": 10,
+    "sizeType": "mb",
+    "extensions": "jpg|jpeg|jfif|png|bmp|pdf|doc|docx|xls|xlsx|zip|rar|mp3|avi|mp4",
+    "category": "mgr-transfer-report-files"
+  },
+  "managementTransferActionFileConfig": {
+    "maxFileSize": 10,
+    "sizeType": "mb",
+    "extensions": "jpg|jpeg|jfif|png|bmp|pdf|doc|docx|xls|xlsx|zip|rar|mp3|avi|mp4",
+    "category": "mgr-transfer-action-files"
+  },
+  "personalTransferFileConfig": {
+    "maxFileSize": 10,
+    "sizeType": "mb",
+    "extensions": "jpg|jpeg|jfif|png|bmp|pdf|doc|docx|xls|xlsx|zip|rar|mp3|avi|mp4",
+    "category": "personal-transfer-files"
+  },  
+  "personalTransferReportFileConfig": {
+    "maxFileSize": 10,
+    "sizeType": "mb",
+    "extensions": "jpg|jpeg|jfif|png|bmp|pdf|doc|docx|xls|xlsx|zip|rar|mp3|avi|mp4",
+    "category": "personal-transfer-report-files"
+  },
+  "personalTransferActionFileConfig": {
+    "maxFileSize": 10,
+    "sizeType": "mb",
+    "extensions": "jpg|jpeg|jfif|png|bmp|pdf|doc|docx|xls|xlsx|zip|rar|mp3|avi|mp4",
+    "category": "personal-transfer-action-files"
+  },
+   "ceremonyRequestReportFileConfig": {
+    "maxFileSize": 10,
+    "sizeType": "mb",
+    "extensions": "jpg|jpeg|jfif|png|bmp|pdf|doc|docx|xls|xlsx|zip|rar|mp3|avi|mp4",
+    "category": "ceremony-request-report-files"
+  },
+  "ceremonyRequestActionFileConfig": {
+    "maxFileSize": 10,
+    "sizeType": "mb",
+    "extensions": "jpg|jpeg|jfif|png|bmp|pdf|doc|docx|xls|xlsx|zip|rar|mp3|avi|mp4",
+    "category": "ceremony-request-action-files"
+  },
+  "announceFileConfig": {
+    "maxFileSize": 10,
+    "sizeType": "mb",
+    "extensions": "jpg|jpeg|jfif|png|bmp|pdf|doc|docx|xls|xlsx|zip|rar|mp3|avi|mp4",
+    "category": "announce-files"
+  }
+}
