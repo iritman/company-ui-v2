@@ -85,12 +85,6 @@ export async function saveData(record) {
   return data;
 }
 
-export async function saveItem(record) {
-  const { data } = await http.post(`${apiEndpoint}/item`, record);
-
-  return data;
-}
-
 export async function rejectProductRequest(requestID) {
   const { data } = await http.post(`${apiEndpoint}/reject/${requestID}`, {});
 
@@ -118,12 +112,6 @@ export async function deleteData(recordID) {
   return data;
 }
 
-export async function deleteItem(recordID) {
-  const { data } = await http.delete(`${apiEndpoint}/item/${recordID}`);
-
-  return data;
-}
-
 const service = {
   getParams,
   getItemParams,
@@ -137,12 +125,10 @@ const service = {
   searchFrontSideAccountByID,
   searchData,
   saveData,
-  saveItem,
   rejectProductRequest,
   approveProductRequest,
   undoApproveProductRequest,
   deleteData,
-  deleteItem,
 };
 
 export default service;

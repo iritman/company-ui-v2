@@ -34,6 +34,7 @@ class Words extends Component {
   static active = "فعال";
   static inactive = "غیرفعال";
   static accesses = "دسترسی ها";
+  static reged = "ثبت شده";
 
   static can_view = "امکان مشاهده";
   static can_add = "امکان ثبت";

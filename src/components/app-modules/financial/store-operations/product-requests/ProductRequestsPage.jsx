@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useMount } from "react-use";
-import { Spin, Row, Col } from "antd";
+import { Spin, Row, Col, message } from "antd";
 import Words from "../../../../../resources/words";
 import Colors from "../../../../../resources/colors";
 import utils from "../../../../../tools/utils";
@@ -8,7 +8,7 @@ import SimpleDataTable from "./../../../../common/simple-data-table";
 import {
   getColumn,
   getSheetColumn,
-  getColumns,
+  getPageColumns,
   getSheets,
   checkAccess,
   handleError,
@@ -19,6 +19,7 @@ import { LabelType } from "../../../../antd-general-components/Label";
 import DataPageHeader from "../../../../antd-general-components/DataPageHeader";
 import SearchModal from "./ProductRequestsSearchModal";
 import ProductRequestModal from "./ProductRequestModal";
+import DetailsModal from "./ProductRequestDetailsModal";
 
 const sheetColumns = [
   getSheetColumn(Words.id, "RequestID"),
@@ -50,7 +51,7 @@ const sheetColumns = [
 ];
 
 const baseColumns = [
-  getColumn(Words.id, 75, "RequestID"),
+  getColumn(Words.id, 75, "RequestID", { labelProps: { farsi: true } }),
   getColumn(Words.request_date, 150, "RequestDate", {
     labelProps: { farsi: true, type: LabelType.date, color: Colors.blue[6] },
   }),
@@ -74,11 +75,9 @@ const ProductRequestsPage = ({ pageName }) => {
   const [selectedObject, setSelectedObject] = useState(null);
   const [showSearchModal, setShowSearchModal] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [, setShowDetails] = useState(false);
-  //   const [showDetails, setShowDetails] = useState(false);
+  const [showDetails, setShowDetails] = useState(false);
 
   useMount(async () => {
-    // handleResetContext();
     await checkAccess(setAccess, pageName);
   });
 
@@ -96,21 +95,50 @@ const ProductRequestsPage = ({ pageName }) => {
     setShowModal(true);
   };
 
-  const handleEdit = async () => {
-    console.log("edit...");
-  };
-
   const handleSave = async (row) => {
     const savedRow = await service.saveData(row);
-    // const updatedRecords = updateSavedRecords(row, recordID, records, savedRow);
-    if (selectedObject !== null) {
+
+    if (selectedObject) {
       setSelectedObject({ ...savedRow });
+
+      // Update page records
+      const saved_record_index = records.findIndex(
+        (r) => r.RequestID === row.RequestID
+      );
+      records[saved_record_index] = savedRow;
+      setRecords(records);
     }
-    // setRecords(updatedRecords);
+
+    return savedRow;
   };
 
-  const handleDelete = async () => {
-    console.log("delete...");
+  const handleEdit = async (row) => {
+    setSelectedObject(row);
+    setShowModal(true);
+  };
+
+  const handleDelete = async (row) => {
+    setProgress(true);
+
+    try {
+      let result = await service.deleteData(row.RequestID);
+
+      if (result.Message) {
+        message.success(result.Message);
+      } else {
+        message.error(result.Error);
+      }
+
+      let filteredRecords = records.filter(
+        (obj) => obj.RequestID !== row.RequestID
+      );
+
+      setRecords(filteredRecords);
+    } catch (ex) {
+      handleError(ex);
+    }
+
+    setProgress(false);
   };
 
   const handleCloseModal = () => {
@@ -119,7 +147,7 @@ const ProductRequestsPage = ({ pageName }) => {
   };
 
   const columns = access
-    ? getColumns(
+    ? getPageColumns(
         baseColumns,
         getOperationalButtons,
         access,
@@ -188,14 +216,23 @@ const ProductRequestsPage = ({ pageName }) => {
       {showModal && (
         <ProductRequestModal
           access={access}
-          onOk={handleSave}
-          onCancel={handleCloseModal}
           open={showModal}
           selectedObject={selectedObject}
-          // onSaveProductRequestItem={handleSaveItem}
-          // onDeleteProductRequestItem={handleDeleteItem}
-          // onReject={handleReject}
-          // onApprove={handleApprove}
+          onOk={handleSave}
+          onCancel={handleCloseModal}
+        />
+      )}
+
+      {showDetails && (
+        <DetailsModal
+          open={showDetails}
+          selectedObject={selectedObject}
+          onCancel={() => {
+            setShowDetails(false);
+            setSelectedObject();
+          }}
+          // onUndoApprove={handleUndoApprove}
+          // onRefreshStoreInventory={handleRefreshStoreInventory}
         />
       )}
     </>

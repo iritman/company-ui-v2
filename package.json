@@ -27,6 +27,7 @@
     "react-scripts": "5.0.1",
     "react-use": "^17.5.0",
     "use-window-width-breakpoints": "^1.0.12",
+    "uuid": "^9.0.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
