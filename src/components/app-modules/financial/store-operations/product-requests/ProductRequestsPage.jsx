@@ -153,8 +153,8 @@ const ProductRequestsPage = ({ pageName }) => {
         access,
         handleEdit,
         handleDelete,
-        (row) => row.StatusID === 1, // can edit func
-        (row) => row.StatusID === 1 // can delete func
+        (row) => row.IsChangable, // can edit func
+        (row) => row.IsChangable // can delete func
       )
     : [];
 
