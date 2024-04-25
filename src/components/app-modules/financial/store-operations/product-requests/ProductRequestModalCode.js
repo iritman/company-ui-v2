@@ -7,6 +7,7 @@ import {
   getColumn,
 } from "../../../../antd-general-components/FormManager";
 import Colors from "../../../../../resources/colors";
+import { LabelType } from "../../../../antd-general-components/Label";
 
 export const getItemsColumns = (access, statusID, onEdit, onDelete) => {
   let columns = [
@@ -58,6 +59,47 @@ export const getItemsColumns = (access, statusID, onEdit, onDelete) => {
   }
 
   columns = [...columns, emptyColumn];
+
+  return columns;
+};
+
+export const getActionsColumns = () => {
+  let columns = [
+    getColumn(Words.id, 75, "ActionID", { labelProps: { farsi: true } }),
+    getColumn(Words.registerar, 150, "", {
+      labelProps: {
+        farsi: true,
+        color: Colors.cyan[6],
+        noDataIndex: true,
+        noSorter: true,
+      },
+      renderFunc: (data) => `${data.FirstName} ${data.LastName}`,
+    }),
+    getColumn(Words.role, 150, "SysRoleTitle", {
+      labelProps: {
+        farsi: true,
+        color: Colors.green[6],
+      },
+    }),
+    getColumn(Words.reg_date, 100, "RegDate", {
+      labelProps: {
+        farsi: true,
+        color: Colors.orange[6],
+        noDataIndex: true,
+        noSorter: true,
+        type: LabelType.date,
+      },
+    }),
+    getColumn(Words.reg_time, 100, "RegTime", {
+      labelProps: {
+        farsi: true,
+        color: Colors.orange[6],
+        noDataIndex: true,
+        noSorter: true,
+        type: LabelType.time,
+      },
+    }),
+  ];
 
   return columns;
 };

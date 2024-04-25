@@ -9,7 +9,7 @@ import {
   LabelType,
 } from "../../../../antd-general-components/Label";
 import DetailsTable from "../../../../common/details-table";
-import { getItemsColumns } from "./ProductRequestModalCode";
+import { getItemsColumns, getActionsColumns } from "./ProductRequestModalCode";
 
 const valueColor = Colors.blue[7];
 
@@ -50,22 +50,9 @@ const ProductRequestDetailsModal = ({
     RegTime,
     DetailsText,
     Items,
+    Actions,
   } = selectedObject;
-
-  const items = [
-    {
-      label: Words.product_items,
-      key: "list-items",
-      children: (
-        <Row gutter={[0, 15]}>
-          <Col xs={24}>
-            <DetailsTable records={Items} columns={getItemsColumns()} />
-          </Col>
-        </Row>
-      ),
-    },
-  ];
-
+  console.log(selectedObject);
   const details_items = [
     getItem(Words.id, valueColor, RequestID),
     getItem(Words.request_date, valueColor, RequestDate, {
@@ -94,6 +81,57 @@ const ProductRequestDetailsModal = ({
     getDescriptionsItem(Words.descriptions, valueColor, DetailsText),
   ];
 
+  const items = [
+    {
+      label: Words.product_items,
+      key: "list-items",
+      children: (
+        <Row gutter={[0, 15]}>
+          <Col xs={24}>
+            <DetailsTable records={Items} columns={getItemsColumns()} />
+          </Col>
+        </Row>
+      ),
+    },
+  ];
+
+  const modal_tabs = [
+    {
+      label: Words.main_info,
+      key: "main-info",
+      children: (
+        <Row gutter={[0, 15]}>
+          <Col xs={24}>
+            <Descriptions
+              bordered
+              column={{
+                lg: 3,
+                md: 2,
+                xs: 1,
+              }}
+              size="middle"
+              items={details_items}
+            />
+          </Col>
+          <Col xs={24}>
+            <Tabs type="card" defaultActiveKey="0" items={items} />
+          </Col>
+        </Row>
+      ),
+    },
+    {
+      label: Words.history,
+      key: "history",
+      children: (
+        <Row gutter={[0, 15]}>
+          <Col xs={24}>
+            <DetailsTable records={Actions} columns={getActionsColumns()} />
+          </Col>
+        </Row>
+      ),
+    },
+  ];
+
   // --------------------
 
   const getFooterButtons = () => {
@@ -118,6 +156,9 @@ const ProductRequestDetailsModal = ({
     >
       <Row gutter={[10, 10]}>
         <Col xs={24}>
+          <Tabs type="card" defaultActiveKey="0" items={modal_tabs} />
+        </Col>
+        {/* <Col xs={24}>
           <Descriptions
             bordered
             column={{
@@ -131,7 +172,7 @@ const ProductRequestDetailsModal = ({
         </Col>
         <Col xs={24}>
           <Tabs type="card" defaultActiveKey="0" items={items} />
-        </Col>
+        </Col> */}
       </Row>
     </AntdModal>
   );
