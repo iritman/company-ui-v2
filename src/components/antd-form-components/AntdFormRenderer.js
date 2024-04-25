@@ -335,7 +335,6 @@ const renderFormItem = (form_item, formItemProperties) => {
       break;
 
     case ControlTypes.Numeric_Decimal_Value:
-      console.log(getItemRules(form_item));
       result = (
         <>
           {!is_hidden && (
@@ -353,28 +352,29 @@ const renderFormItem = (form_item, formItemProperties) => {
       );
       break;
 
-    // case controlTypes.Label:
-    //   const filtered_additional_props = { ...additionalProps };
-    //   if (filtered_additional_props.value)
-    //     delete filtered_additional_props.value;
-    //   if (filtered_additional_props.valueColor)
-    //     delete filtered_additional_props.valueColor;
+    case ControlTypes.Label:
+      const filtered_additional_props = { ...additionalProps };
+      if (filtered_additional_props.value)
+        delete filtered_additional_props.value;
+      if (filtered_additional_props.valueColor)
+        delete filtered_additional_props.valueColor;
 
-    //   result = (
-    //     <>
-    //       {!is_hidden && (
-    //         <Col {...col_sizes} key={ItemID}>
-    //           <TextItem
-    //             title={Title}
-    //             value={additionalProps.value || DefaultValue}
-    //             valueColor={additionalProps.valueColor || Colors.magenta[6]}
-    //             {...filtered_additional_props}
-    //           />
-    //         </Col>
-    //       )}
-    //     </>
-    //   );
-    //   break;
+      result = (
+        <>
+          {!is_hidden && (
+            <Col {...col_sizes} key={ItemID}>
+              <AntdControl
+                control={ControlType.Label}
+                title={Title}
+                value={additionalProps.value || ""}
+                valueColor={additionalProps.valueColor || Colors.magenta[6]}
+                {...filtered_additional_props}
+              />
+            </Col>
+          )}
+        </>
+      );
+      break;
 
     // case controlTypes.Switch:
     //   result = (

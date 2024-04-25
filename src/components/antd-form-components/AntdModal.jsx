@@ -58,7 +58,7 @@ const AntdModal = (props) => {
               type="primary"
               onClick={onSubmit}
               loading={progress}
-              disabled={disabled}
+              disabled={disabled || progress}
             >
               {searchModal ? Words.search : Words.submit}
             </Button>

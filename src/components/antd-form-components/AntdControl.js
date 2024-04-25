@@ -11,6 +11,7 @@ import AntdDate from "./AntdDate";
 import AntdTime from "./AntdTime";
 import AntdArray from "./AntdArray";
 import AntdHidden from "./AntdHidden";
+import AntdLabel from "./AntdLabel";
 
 export const ControlType = {
   Form: "form",
@@ -25,6 +26,7 @@ export const ControlType = {
   Time: "time",
   Array: "array",
   HiddenField: "hidden-field",
+  Label: "label",
 };
 
 export const AntdControl = (props) => {
@@ -55,6 +57,8 @@ export const AntdControl = (props) => {
       return <AntdArray {...rest} />;
     case ControlType.HiddenField:
       return <AntdHidden {...rest} />;
+    case ControlType.Label:
+      return <AntdLabel {...rest} />;
     default:
       return null;
   }

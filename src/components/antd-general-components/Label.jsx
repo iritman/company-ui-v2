@@ -7,15 +7,17 @@ const { Text } = Typography;
 export const LabelType = {
   date: "date",
   time: "time",
+  date_time: "date_time",
+  descriptions: "descriptions",
 };
 
 export const Label = (props) => {
-  const { farsi, color, type, styles, ...rest } = props;
+  let { farsi, color, type, styles, ...rest } = props;
 
   const text_color = {};
   if (color) text_color.color = color;
 
-  let content = props.children;
+  let content = props.children || "";
 
   if (type) {
     switch (type) {
@@ -25,7 +27,15 @@ export const Label = (props) => {
       case LabelType.time:
         content = utils.colonTime(content);
         break;
+      case LabelType.date_time:
+        const { date, time } = rest;
+        content = `${utils.slashDate(date)} - ${utils.colonTime(time)}`;
+        break;
+      case LabelType.descriptions:
+        styles = { ...styles, whiteSpace: "pre-line" };
+        break;
       default:
+        content = "";
         break;
     }
   }
@@ -37,4 +47,37 @@ export const Label = (props) => {
       {content}
     </Text>
   );
+};
+
+export const getItem = (title, color, content, props = {}) => {
+  const { span } = props;
+
+  const item = {
+    label: title,
+    children: (
+      <Label farsi color={color} {...props}>
+        {content}
+      </Label>
+    ),
+  };
+
+  if (span) item.span = span;
+
+  return item;
+};
+
+export const getDescriptionsItem = (title, color, content, span = 3) => {
+  return {
+    label: title,
+    span,
+    children: (
+      <>
+        {content.length > 0 && (
+          <Label farsi color={color} type={LabelType.descriptions}>
+            {content}
+          </Label>
+        )}
+      </>
+    ),
+  };
 };

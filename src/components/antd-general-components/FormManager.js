@@ -1,13 +1,17 @@
 import React from "react";
 import { Label } from "./Label";
 import accessesService from "../../services/app/accesses-service";
-import { Space, Button, Popconfirm, message } from "antd";
+import { Space, Button, Popconfirm, message, Popover, Typography } from "antd";
 import {
   EditOutlined as EditIcon,
   QuestionCircleOutlined as QuestionIcon,
   DeleteOutlined as DeleteIcon,
 } from "@ant-design/icons";
+import { MdInfoOutline as InfoIcon } from "react-icons/md";
 import Words from "../../resources/words";
+import Colors from "../../resources/colors";
+
+const { Text } = Typography;
 
 export const getSorter = (fieldName) => (a, b) => {
   if (a[fieldName] < b[fieldName]) return -1;
@@ -15,11 +19,52 @@ export const getSorter = (fieldName) => (a, b) => {
   return 0;
 };
 
+export const emptyColumn = {
+  title: "",
+  fixed: "right",
+  align: "center",
+  width: 1,
+  render: () => <></>,
+};
+
+export const modifyColumn = (access, onEdit, onDelete) => {
+  return {
+    title: "",
+    fixed: "right",
+    align: "center",
+    width: 75,
+    render: (record) => (
+      <Space>
+        {access.CanDelete && onDelete && (
+          <Popconfirm
+            title={Words.questions.sure_to_delete_selected_item}
+            onConfirm={async () => await onDelete(record)}
+            okText={Words.yes}
+            cancelText={Words.no}
+            icon={<QuestionIcon style={{ color: "red" }} />}
+          >
+            <Button type="link" icon={<DeleteIcon />} danger />
+          </Popconfirm>
+        )}
+
+        {access.CanEdit && onEdit && (
+          <Button
+            type="link"
+            icon={<EditIcon />}
+            onClick={() => onEdit(record)}
+          />
+        )}
+      </Space>
+    ),
+  };
+};
+
 export const getColumn = (title, width, fieldName, config = {}) => {
   const {
     align = "center",
     noDataIndex = false,
     noSorter = false,
+    isDescriptions = false,
     labelProps = {},
     renderFunc = null,
   } = config;
@@ -31,7 +76,25 @@ export const getColumn = (title, width, fieldName, config = {}) => {
     // dataIndex: fieldName,
     // sorter: getSorter(fieldName),
     render: (data) => (
-      <Label {...labelProps}>{renderFunc ? renderFunc(data) : data}</Label>
+      <>
+        {isDescriptions ? (
+          <>
+            {data[fieldName]?.length > 0 && (
+              <Popover content={<Text>{data[fieldName]}</Text>}>
+                <InfoIcon
+                  style={{
+                    color: Colors.green[6],
+                    fontSize: 19,
+                    cursor: "pointer",
+                  }}
+                />
+              </Popover>
+            )}
+          </>
+        ) : (
+          <Label {...labelProps}>{renderFunc ? renderFunc(data) : data}</Label>
+        )}
+      </>
     ),
   };
 
@@ -67,7 +130,7 @@ export const checkAccess = async (setAccess, pageName) => {
   }
 };
 
-export const getColumns = (
+export const getPageColumns = (
   baseColumns,
   getOperationalButtons,
   access,
