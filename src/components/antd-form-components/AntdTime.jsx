@@ -12,7 +12,8 @@ const formatTime = (regTime) => {
   return `${hh}:${mm}`;
 };
 
-const TimeInput = ({ value, onChange }) => {
+const TimeInput = (props) => {
+  const { value, onChange, ...rest } = props;
   const [selectedTime, setSelectedTime] = useState(null);
 
   useMount(() => {
@@ -30,6 +31,7 @@ const TimeInput = ({ value, onChange }) => {
     <TimePicker
       format={format}
       value={selectedTime || (value && dayjs(value, format))}
+      {...rest}
       onChange={onTimeChange}
     />
   );

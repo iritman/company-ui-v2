@@ -13,7 +13,8 @@ const formatDate = (regDate) => {
   return `${year}-${month}-${day}`;
 };
 
-const DateInput = ({ value, onChange }) => {
+const DateInput = (props) => {
+  const { value, onChange, ...rest } = props;
   const [selectedDate, setSelectedDate] = useState(null);
 
   useMount(() => {
@@ -71,6 +72,7 @@ const DateInput = ({ value, onChange }) => {
       locale={datePickerLocale}
       value={selectedDate || (value ? dayjs(value, { jalali: true }) : "")}
       style={{ width: "100%" }}
+      {...rest}
       onChange={onDateChange}
     />
   );
