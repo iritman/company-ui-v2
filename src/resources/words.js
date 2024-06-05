@@ -35,6 +35,9 @@ class Words extends Component {
   static inactive = "غیرفعال";
   static accesses = "دسترسی ها";
   static reged = "ثبت شده";
+  static approve = "تایید";
+  static reject = "لغو";
+  static request_item = "قلم درخواست";
 
   static can_view = "امکان مشاهده";
   static can_add = "امکان ثبت";
@@ -203,8 +206,10 @@ class Words extends Component {
   static to_time = "ساعت پایان";
   static in_progress = "درحال بررسی";
   static accepted = "تایید شده";
+  static not_accepted = "لغو شده";
   static rejected = "رد شده";
   static accept_request = "تایید درخواست";
+  static accept_request_with_note = "تایید با یادداشت";
   static reject_request = "رد درخواست";
   static cancel_request = "لغو درخواست";
   static search_type = "نوع جستجو";
@@ -1364,6 +1369,7 @@ class Words extends Component {
     sure_to_delete_financial_year: "برای حذف سال مالی اطمینان دارید؟",
     sure_to_reject_request: "برای رد درخواست اطمینان دارید؟",
     sure_to_cancel_request: "برای لغو درخواست اطمینان دارید؟",
+    sure_to_accept_request: "برای تایید درخواست اطمینان دارید؟",
     sure_to_submit_approve_request: "برای ثبت و تایید درخواست اطمینان دارید؟",
     sure_to_submit_approve_receive_receipt:
       "برای ثبت و تایید رسید دریافت اطمینان دارید؟",

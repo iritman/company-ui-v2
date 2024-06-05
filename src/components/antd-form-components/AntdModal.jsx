@@ -49,9 +49,11 @@ const AntdModal = (props) => {
       footer={
         footer || [
           buttons || <React.Fragment key="empty" />,
-          <Button key="clear-button" onClick={onClear}>
-            {Words.clear}
-          </Button>,
+          onClear && (
+            <Button key="clear-button" onClick={onClear}>
+              {Words.clear}
+            </Button>
+          ),
           confirm || (
             <Button
               key="submit-button"

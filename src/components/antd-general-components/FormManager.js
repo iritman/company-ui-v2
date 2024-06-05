@@ -65,6 +65,7 @@ export const getColumn = (title, width, fieldName, config = {}) => {
     noDataIndex = false,
     noSorter = false,
     isDescriptions = false,
+    noDefaultLabel = false,
     labelProps = {},
     renderFunc = null,
   } = config;
@@ -92,7 +93,15 @@ export const getColumn = (title, width, fieldName, config = {}) => {
             )}
           </>
         ) : (
-          <Label {...labelProps}>{renderFunc ? renderFunc(data) : data}</Label>
+          <>
+            {noDefaultLabel ? (
+              <>{renderFunc ? renderFunc(data) : data}</>
+            ) : (
+              <Label {...labelProps}>
+                {renderFunc ? renderFunc(data) : data}
+              </Label>
+            )}
+          </>
         )}
       </>
     ),

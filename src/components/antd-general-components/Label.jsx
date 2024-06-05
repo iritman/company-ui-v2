@@ -72,7 +72,7 @@ export const getDescriptionsItem = (title, color, content, span = 3) => {
     span,
     children: (
       <>
-        {content.length > 0 && (
+        {content?.length > 0 && (
           <Label farsi color={color} type={LabelType.descriptions}>
             {content}
           </Label>
