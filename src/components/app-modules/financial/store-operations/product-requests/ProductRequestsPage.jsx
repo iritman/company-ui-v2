@@ -63,7 +63,7 @@ const baseColumns = [
     labelProps: { farsi: true, color: Colors.cyan[6] },
   }),
   getColumn(Words.request_type, 150, "RequestTypeTitle"),
-  getColumn(Words.status, 150, "StatusTitle", { color: Colors.blue[6] }),
+  getColumn(Words.status, 150, "StatusTitle"),
 ];
 
 const ProductRequestsPage = ({ pageName }) => {
@@ -91,8 +91,20 @@ const ProductRequestsPage = ({ pageName }) => {
     );
   };
 
+  const handleChangeSelectedObject = (data) => {
+    setSelectedObject(data);
+  };
+
   const handleAdd = () => {
     setShowModal(true);
+  };
+
+  const updatePageRecord = (updated_data) => {
+    const record_index = records.findIndex(
+      (r) => r.RequestID === updated_data.RequestID
+    );
+    records[record_index] = updated_data;
+    setRecords(records);
   };
 
   const handleSave = async (row) => {
@@ -102,11 +114,12 @@ const ProductRequestsPage = ({ pageName }) => {
       setSelectedObject({ ...savedRow });
 
       // Update page records
-      const saved_record_index = records.findIndex(
-        (r) => r.RequestID === row.RequestID
-      );
-      records[saved_record_index] = savedRow;
-      setRecords(records);
+      updatePageRecord(row);
+      // const saved_record_index = records.findIndex(
+      //   (r) => r.RequestID === row.RequestID
+      // );
+      // records[saved_record_index] = savedRow;
+      // setRecords(records);
     }
 
     return savedRow;
@@ -182,6 +195,18 @@ const ProductRequestsPage = ({ pageName }) => {
     setProgress(false);
   };
 
+  const handleSubmitStepAction = async (feedback) => {
+    const data = await service.regFeedback({
+      ...feedback,
+      Request: selectedObject,
+    });
+
+    setSelectedObject(data);
+    updatePageRecord(data);
+
+    return data;
+  };
+
   // --------------------
 
   return (
@@ -231,8 +256,8 @@ const ProductRequestsPage = ({ pageName }) => {
             setShowDetails(false);
             setSelectedObject();
           }}
-          // onUndoApprove={handleUndoApprove}
-          // onRefreshStoreInventory={handleRefreshStoreInventory}
+          onChange={handleChangeSelectedObject}
+          onStepAction={handleSubmitStepAction}
         />
       )}
     </>

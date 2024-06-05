@@ -73,6 +73,12 @@ export async function searchFrontSideAccountByID(accountID) {
   return data;
 }
 
+export async function getNextStep(requestID) {
+  const { data } = await http.get(`${apiEndpoint}/next-step/${requestID}`);
+
+  return data;
+}
+
 export async function searchData(filter) {
   const { data } = await http.post(`${apiEndpoint}/search`, filter);
 
@@ -81,6 +87,12 @@ export async function searchData(filter) {
 
 export async function saveData(record) {
   const { data } = await http.post(`${apiEndpoint}`, record);
+
+  return data;
+}
+
+export async function regFeedback(feedback) {
+  const { data } = await http.post(`${apiEndpoint}/feedback`, feedback);
 
   return data;
 }
@@ -123,8 +135,10 @@ const service = {
   searchProductByID,
   searchFrontSideAccounts,
   searchFrontSideAccountByID,
+  getNextStep,
   searchData,
   saveData,
+  regFeedback,
   rejectProductRequest,
   approveProductRequest,
   undoApproveProductRequest,
