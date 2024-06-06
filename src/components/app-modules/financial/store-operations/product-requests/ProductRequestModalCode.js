@@ -18,6 +18,17 @@ export const getItemsColumns = (access, statusID, onEdit, onDelete) => {
     getColumn(Words.product, 150, "Title", {
       labelProps: { farsi: true, color: Colors.cyan[6] },
     }),
+    getColumn(Words.brand, 150, "Brand", {
+      labelProps: { farsi: true, color: Colors.grey[6] },
+    }),
+    getColumn(Words.commercial_code, 150, "CommercialCode", {
+      labelProps: { farsi: true, color: Colors.grey[6] },
+    }),
+    getColumn(Words.techniacl_info, 100, "TechnicalInfo", {
+      noDataIndex: true,
+      noSorter: true,
+      isDescriptions: true,
+    }),
     getColumn(Words.request_count, 150, "RequestCount", {
       labelProps: { farsi: true, color: Colors.red[6] },
     }),

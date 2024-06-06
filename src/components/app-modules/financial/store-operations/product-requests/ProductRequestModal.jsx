@@ -178,7 +178,7 @@ const ProductRequestModal = ({
       props: [
         {
           propName: "hidden",
-          propValue: selectedObject === null,
+          propValue: !selectedObject,
         },
         {
           propName: "value",

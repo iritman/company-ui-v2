@@ -907,6 +907,8 @@ class Words extends Component {
   static vehicle_brand = "برند خودرو";
   static vehicle_models = "مدل های خودرو";
   static brand = "برند";
+  static commercial_code = "کد تجاری کالا";
+  static techniacl_info = "مشخصه فنی";
   static model = "مدل";
   static product_year = "سال تولید";
   static pelak = "پلاک";

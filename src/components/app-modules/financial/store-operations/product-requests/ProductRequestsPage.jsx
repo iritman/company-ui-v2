@@ -35,7 +35,7 @@ const sheetColumns = [
     utils.slashDate(record.NeededDate)
   ),
   getSheetColumn(Words.request_date, "", (record) =>
-    utils.slashDate(record.PayDate)
+    utils.slashDate(record.RequestDate)
   ),
   getSheetColumn(Words.standard_description, "DetailsText"),
   getSheetColumn(Words.from_store, "FromStoreTitle"),
